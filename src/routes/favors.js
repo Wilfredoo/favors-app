@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Favors } = require('../models/favorSchema.js')
 
-// create favor
 router.post("/createFavor", async (req, res) => {
   try {
     const newFavor = await Favors.create(req.body);
@@ -18,7 +17,6 @@ router.post("/createFavor", async (req, res) => {
     console.error(err);
   }
 });
-
 
 router.get("/:id", async (req, res) => {
   try {
