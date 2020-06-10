@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
@@ -36,6 +40,9 @@ function registrationValidation(user) {
       .email()
       .required(),
     password: Joi.string()
+      .min(8)
+      .required(),
+    description: Joi.string()
       .min(8)
       .required()
   };

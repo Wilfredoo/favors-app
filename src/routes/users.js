@@ -5,17 +5,12 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const jwt_decode = require("jwt-decode");
-const { key } = require("../config/localconfig");
-
+const { localconfig } = require("../config/localconfig");
 const { Users, regValidate, logValidate } = require("../models/usersSchema");
 const passport = require("passport");
 
 //authentication
 const auth = require("../config/auth");
-
-router.get("/", (req, res) => {
-  res.send("Hello users api dog cat");
-});
 
 router.post("/register", (req, res) => {
   console.log("calling register")
@@ -59,6 +54,7 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+
   const { error } = logValidate(req.body);
   if (error) {
     return res.status(400).json({
@@ -85,7 +81,7 @@ router.post("/login", (req, res) => {
           user: user.username,
           email: user.email
         };
-        jwt.sign(payload, keys.secretKey, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, localconfig.secretKey, { expiresIn: 3600 }, (err, token) => {
           // how to get user from token
           const decode = jwt_decode(token);
 
@@ -105,10 +101,6 @@ router.post("/login", (req, res) => {
     });
   });
 });
-
-// router.get("/current", auth, (req, res) => {
-//   res.send("Success, you can now visit this route traveler");
-// });
 
 router.get(
   "/current",

@@ -5,9 +5,7 @@ const favorSchema = new mongoose.Schema(
     title: {type: String},
     description: {type: String},
     asker: {type: String},
-    ayniPoints: {type: Number},
-    location: { type: String},
-    phone: {type: Number}
+    contact: {type: Number}
 
   },
   {timestamps: true}
